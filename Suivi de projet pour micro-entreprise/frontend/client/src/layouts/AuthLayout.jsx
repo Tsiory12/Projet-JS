@@ -4,7 +4,7 @@
  */
 
 import { Outlet } from 'react-router-dom';
-import { Briefcase } from 'lucide-react';
+import { Briefcase, FolderKanban, CheckSquare, LayoutDashboard } from 'lucide-react';
 
 const AuthLayout = () => {
   return (
@@ -36,12 +36,12 @@ const AuthLayout = () => {
           {/* Features */}
           <div className="space-y-4 text-left">
             {[
-              { icon: '🚀', title: 'Gestion de projets', desc: 'Créez et pilotez vos projets facilement' },
-              { icon: '✅', title: 'Suivi des tâches', desc: 'Assignez et suivez chaque tâche' },
-              { icon: '📊', title: 'Tableaux de bord', desc: 'Visualisez l\'avancement en temps réel' },
+              { icon: <FolderKanban className="text-indigo-400" size={24} />, title: 'Gestion de projets', desc: 'Créez et pilotez vos projets facilement' },
+              { icon: <CheckSquare className="text-purple-400" size={24} />, title: 'Suivi des tâches', desc: 'Assignez et suivez chaque tâche' },
+              { icon: <LayoutDashboard className="text-pink-400" size={24} />, title: 'Tableaux de bord', desc: 'Visualisez l\'avancement en temps réel' },
             ].map((f) => (
               <div key={f.title} className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-                <span className="text-2xl">{f.icon}</span>
+                <div className="flex-shrink-0 mt-0.5">{f.icon}</div>
                 <div>
                   <p className="text-sm font-semibold text-white">{f.title}</p>
                   <p className="text-xs text-slate-400">{f.desc}</p>

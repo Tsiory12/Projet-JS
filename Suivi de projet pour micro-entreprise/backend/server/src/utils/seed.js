@@ -292,6 +292,51 @@ async function main() {
 
   console.log(`✅ Tâches créées: ${tachesProjet1.length + tachesProjet2.length + tachesProjet3.length}`);
 
+  // ============================================================
+  // Création des commentaires de démonstration
+  // ============================================================
+  await prisma.commentaire.createMany({
+    data: [
+      {
+        contenu: "J'ai finalisé les wireframes de la page d'accueil. Sophie, tu peux commencer à travailler sur la charte graphique Figma.",
+        dateCreation: new Date('2026-02-14T10:30:00Z'),
+        tacheId: tachesProjet1[0].id,
+        auteurId: collaborateur1.id,
+      },
+      {
+        contenu: "Super travail Lucas, les wireframes sont très clairs. Je m'attaque aux maquettes UI.",
+        dateCreation: new Date('2026-02-14T14:45:00Z'),
+        tacheId: tachesProjet1[0].id,
+        auteurId: collaborateur2.id,
+      },
+      {
+        contenu: "Excellent travail d'équipe. Marie Dupont.",
+        dateCreation: new Date('2026-02-15T09:00:00Z'),
+        tacheId: tachesProjet1[0].id,
+        auteurId: responsable.id,
+      },
+      {
+        contenu: "Où en est-on sur le design system de la boutique ? Le développement frontend en dépend.",
+        dateCreation: new Date('2026-03-10T11:00:00Z'),
+        tacheId: tachesProjet1[1].id,
+        auteurId: responsable.id,
+      },
+      {
+        contenu: "Le design system est terminé à 90%, j'ajoute les composants de formulaires et c'est bon.",
+        dateCreation: new Date('2026-03-11T16:20:00Z'),
+        tacheId: tachesProjet1[1].id,
+        auteurId: collaborateur2.id,
+      },
+      {
+        contenu: "J'ai commencé l'intégration de Stripe. J'ai configuré les Webhooks de test.",
+        dateCreation: new Date('2026-08-01T08:30:00Z'),
+        tacheId: tachesProjet1[3].id,
+        auteurId: collaborateur3.id,
+      }
+    ]
+  });
+  console.log('💬 Commentaires créés: 6');
+
   console.log('\n🎉 Seed terminé avec succès !\n');
   console.log('📧 Comptes de connexion (mot de passe: Password123):');
   console.log('   Responsable: marie.dupont@entreprise.com');

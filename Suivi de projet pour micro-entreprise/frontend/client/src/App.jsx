@@ -47,10 +47,10 @@ const App = () => {
             pauseOnHover
             theme="dark"
             toastStyle={{
-              background: 'rgb(24, 24, 36)',
-              border: '1px solid rgb(55, 55, 80)',
+              background: 'rgb(var(--color-surface-2))',
+              border: '1px solid rgb(var(--color-border) / 0.5)',
               borderRadius: '12px',
-              color: 'rgb(230, 230, 250)',
+              color: 'rgb(var(--color-text))',
               fontFamily: 'Inter, sans-serif',
               fontSize: '14px',
             }}

@@ -22,6 +22,7 @@ import {
   formatDate, formatDateForInput, getProjetStatutInfo,
   getTacheStatutInfo, getPrioriteInfo, isOverdue,
 } from '../utils/helpers.js';
+import TacheDetailModal from '../components/tasks/TacheDetailModal.jsx';
 
 const PRIORITES = ['FAIBLE', 'MOYENNE', 'HAUTE'];
 const STATUTS_TACHE = [
@@ -46,27 +47,29 @@ const ProjetDetailPage = () => {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [filterStatut, setFilterStatut] = useState('');
   const [filterPriorite, setFilterPriorite] = useState('');
+  const [detailTacheId, setDetailTacheId] = useState(null);
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
 
+  const loadProject = async () => {
+    try {
+      const [projetRes, collabRes] = await Promise.all([
+        projetService.getById(id),
+        isResponsable ? utilisateurService.getCollaborateurs() : Promise.resolve({ data: { data: [] } }),
+      ]);
+      setProjet(projetRes.data.data);
+      setCollaborateurs(collabRes.data.data);
+    } catch (err) {
+      notifyErreur('Projet introuvable');
+      navigate('/projets');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Chargement du projet
   useEffect(() => {
-    const load = async () => {
-      try {
-        const [projetRes, collabRes] = await Promise.all([
-          projetService.getById(id),
-          isResponsable ? utilisateurService.getCollaborateurs() : Promise.resolve({ data: { data: [] } }),
-        ]);
-        setProjet(projetRes.data.data);
-        setCollaborateurs(collabRes.data.data);
-      } catch (err) {
-        notifyErreur('Projet introuvable');
-        navigate('/projets');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    load();
+    loadProject();
   }, [id]);
 
   const openCreateTache = () => {
@@ -297,7 +300,10 @@ const ProjetDetailPage = () => {
                   {/* Infos */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <p className={`font-semibold text-sm ${tache.statut === 'TERMINEE' ? 'line-through text-[rgb(var(--color-text-dim))]' : 'text-white'}`}>
+                      <p
+                        onClick={() => setDetailTacheId(tache.id)}
+                        className={`font-semibold text-sm cursor-pointer hover:text-indigo-400 transition-colors ${tache.statut === 'TERMINEE' ? 'line-through text-[rgb(var(--color-text-dim))]' : 'text-white'}`}
+                      >
                         {tache.titre}
                       </p>
                       <span className={`badge ${prioriteInfo.className}`} style={{ fontSize: '10px', padding: '1px 6px' }}>
@@ -437,6 +443,13 @@ const ProjetDetailPage = () => {
         onConfirm={handleDeleteTache}
         onCancel={() => setDeleteTarget(null)}
         isLoading={isDeleting}
+      />
+
+      <TacheDetailModal
+        isOpen={!!detailTacheId}
+        onClose={() => setDetailTacheId(null)}
+        tacheId={detailTacheId}
+        onStatutChange={() => loadProject()}
       />
     </div>
   );

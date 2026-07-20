@@ -39,7 +39,7 @@ const LoginPage = () => {
     <div className="animate-fadeIn">
       {/* Titre */}
       <div className="mb-8">
-        <h2 className="text-3xl font-black text-white mb-2">Bienvenue 👋</h2>
+        <h2 className="text-3xl font-black text-white mb-2">Bienvenue</h2>
         <p className="text-[rgb(var(--color-text-muted))]">
           Connectez-vous à votre espace de travail
         </p>

@@ -22,6 +22,7 @@ import {
   getPrioriteInfo, isOverdue, getInitiales,
 } from '../utils/helpers.js';
 import { useEffect } from 'react';
+import TacheDetailModal from '../components/tasks/TacheDetailModal.jsx';
 
 const COLONNES_KANBAN = [
   { key: 'A_FAIRE', label: 'À faire', icon: Circle, color: 'text-[rgb(var(--color-text-dim))]', borderColor: 'border-[rgb(var(--color-border)/0.5)]' },
@@ -42,8 +43,9 @@ const TachesPage = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [collaborateurs, setCollaborateurs] = useState([]);
   const [openMenuId, setOpenMenuId] = useState(null);
+  const [detailTacheId, setDetailTacheId] = useState(null);
 
-  const { taches, isLoading, createTache, updateTache, updateStatut, deleteTache } = useTaches({
+  const { taches, isLoading, refetch, createTache, updateTache, updateStatut, deleteTache } = useTaches({
     ...(search && { search }),
     ...(filterStatut && { statut: filterStatut }),
     ...(filterPriorite && { priorite: filterPriorite }),
@@ -129,7 +131,10 @@ const TachesPage = () => {
         {/* Contenu */}
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
-            <p className={`text-sm font-semibold ${tache.statut === 'TERMINEE' ? 'line-through text-[rgb(var(--color-text-dim))]' : 'text-white'}`}>
+            <p
+              onClick={() => setDetailTacheId(tache.id)}
+              className={`text-sm font-semibold cursor-pointer hover:text-indigo-400 transition-colors ${tache.statut === 'TERMINEE' ? 'line-through text-[rgb(var(--color-text-dim))]' : 'text-white'}`}
+            >
               {tache.titre}
             </p>
             <span className={`badge ${prioriteInfo.className}`} style={{ fontSize: '10px', padding: '1px 5px' }}>
@@ -372,6 +377,13 @@ const TachesPage = () => {
         onConfirm={handleDelete}
         onCancel={() => setDeleteId(null)}
         isLoading={isDeleting}
+      />
+
+      <TacheDetailModal
+        isOpen={!!detailTacheId}
+        onClose={() => setDetailTacheId(null)}
+        tacheId={detailTacheId}
+        onStatutChange={() => refetch()}
       />
     </div>
   );

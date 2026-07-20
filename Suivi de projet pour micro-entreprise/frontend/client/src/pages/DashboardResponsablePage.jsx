@@ -182,7 +182,7 @@ const DashboardResponsablePage = () => {
       <div className="section-header">
         <div>
           <h1 className="text-2xl font-black text-white">
-            Bonjour, {user?.prenom} 👋
+            Bonjour, {user?.prenom}
           </h1>
           <p className="text-sm text-[rgb(var(--color-text-muted))] mt-1">
             Voici un aperçu de l'avancement de vos projets

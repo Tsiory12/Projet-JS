@@ -421,3 +421,102 @@ export const getCollaborateurStats = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * Récupérer les commentaires d'une tâche
+ * @route GET /api/taches/:id/commentaires
+ * @access Privé
+ */
+export const getTacheCommentaires = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const tache = await prisma.tache.findUnique({
+      where: { id: parseInt(id) },
+      include: { projet: true },
+    });
+
+    if (!tache) {
+      throw new ApiError('Tâche non trouvée.', 404);
+    }
+
+    // Vérification des droits
+    if (req.user.role === 'COLLABORATEUR' && tache.collaborateurId !== req.user.id) {
+      throw new ApiError('Accès refusé à cette tâche.', 403);
+    }
+    if (req.user.role === 'RESPONSABLE' && tache.projet.responsableId !== req.user.id) {
+      throw new ApiError('Accès refusé à cette tâche.', 403);
+    }
+
+    const commentaires = await prisma.commentaire.findMany({
+      where: { tacheId: parseInt(id) },
+      include: {
+        auteur: {
+          select: { id: true, nom: true, prenom: true, email: true, role: true },
+        },
+      },
+      orderBy: { dateCreation: 'asc' },
+    });
+
+    res.status(200).json({
+      success: true,
+      data: commentaires,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Ajouter un commentaire sur une tâche
+ * @route POST /api/taches/:id/commentaires
+ * @access Privé
+ */
+export const createTacheCommentaire = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { contenu } = req.body;
+
+    if (!contenu || !contenu.trim()) {
+      throw new ApiError('Le contenu du commentaire est requis.', 400);
+    }
+
+    const tache = await prisma.tache.findUnique({
+      where: { id: parseInt(id) },
+      include: { projet: true },
+    });
+
+    if (!tache) {
+      throw new ApiError('Tâche non trouvée.', 404);
+    }
+
+    // Vérification des droits
+    if (req.user.role === 'COLLABORATEUR' && tache.collaborateurId !== req.user.id) {
+      throw new ApiError('Accès refusé à cette tâche.', 403);
+    }
+    if (req.user.role === 'RESPONSABLE' && tache.projet.responsableId !== req.user.id) {
+      throw new ApiError('Accès refusé à cette tâche.', 403);
+    }
+
+    const commentaire = await prisma.commentaire.create({
+      data: {
+        contenu: contenu.trim(),
+        tacheId: parseInt(id),
+        auteurId: req.user.id,
+      },
+      include: {
+        auteur: {
+          select: { id: true, nom: true, prenom: true, email: true, role: true },
+        },
+      },
+    });
+
+    res.status(201).json({
+      success: true,
+      message: 'Commentaire ajouté avec succès.',
+      data: commentaire,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

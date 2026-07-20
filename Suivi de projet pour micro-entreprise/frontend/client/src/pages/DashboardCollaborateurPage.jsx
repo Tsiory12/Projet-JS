@@ -24,6 +24,7 @@ import {
   ArrowRight,
   Calendar,
   Flame,
+  CheckCircle2,
 } from 'lucide-react';
 import {
   formatDate,
@@ -106,7 +107,7 @@ const DashboardCollaborateurPage = () => {
       <div className="section-header">
         <div>
           <h1 className="text-2xl font-black text-white">
-            Mon espace, {user?.prenom} 👋
+            Mon espace, {user?.prenom}
           </h1>
           <p className="text-sm text-[rgb(var(--color-text-muted))] mt-1">
             Suivez et mettez à jour vos tâches assignées
@@ -181,7 +182,7 @@ const DashboardCollaborateurPage = () => {
           <div className="space-y-3">
             {!stats?.prochaines || stats.prochaines.length === 0 ? (
               <div className="empty-state py-8">
-                <div className="empty-state-icon">🎉</div>
+                <CheckCircle2 size={40} className="text-emerald-500/70 mb-3" />
                 <p className="text-sm font-semibold text-white">Aucune échéance proche</p>
                 <p className="text-xs mt-1">Toutes vos tâches sont à jour !</p>
               </div>

@@ -8,6 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // ============================================================
@@ -53,6 +54,7 @@ model Utilisateur {
 
   projetsGeres    Projet[]  @relation("ResponsableProjets")
   tachesAssignees Tache[]   @relation("CollaborateurTaches")
+  commentaires    Commentaire[]
 
   @@map("utilisateurs")
 }
@@ -94,6 +96,24 @@ model Tache {
 
   projet        Projet       @relation("ProjetTaches", fields: [projetId], references: [id], onDelete: Cascade)
   collaborateur Utilisateur? @relation("CollaborateurTaches", fields: [collaborateurId], references: [id], onDelete: SetNull)
+  commentaires  Commentaire[]
 
   @@map("taches")
+}
+
+// ============================================================
+// Modèle Commentaire
+// ============================================================
+model Commentaire {
+  id            Int         @id @default(autoincrement())
+  contenu       String      @db.Text
+  dateCreation  DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  tacheId       Int
+  auteurId      Int
+
+  tache   Tache       @relation(fields: [tacheId], references: [id], onDelete: Cascade)
+  auteur  Utilisateur @relation(fields: [auteurId], references: [id], onDelete: Cascade)
+
+  @@map("commentaires")
 }

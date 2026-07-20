@@ -39,4 +39,14 @@ export const tacheService = {
    * Statistiques du tableau de bord collaborateur
    */
   getDashboardStats: () => api.get('/taches/dashboard/stats'),
+
+  /**
+   * Récupérer les commentaires d'une tâche
+   */
+  getCommentaires: (id) => api.get(`/taches/${id}/commentaires`),
+
+  /**
+   * Ajouter un commentaire à une tâche
+   */
+  createCommentaire: (id, contenu) => api.post(`/taches/${id}/commentaires`, { contenu }),
 };

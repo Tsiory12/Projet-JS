@@ -36,6 +36,45 @@
     --color-faible: 34 197 94;
   }
 
+  html.light {
+    /* Couleurs de surface */
+    --color-bg: 243 244 246;
+    --color-surface: 255 255 255;
+    --color-surface-2: 249 250 251;
+    --color-surface-3: 229 231 235;
+    --color-border: 209 213 219;
+
+    /* Couleurs de texte */
+    --color-text: 17 24 39;
+    --color-text-muted: 75 85 99;
+    --color-text-dim: 107 114 128;
+  }
+
+  /* Overrides de confort pour le mode clair (gestion des classes tailwind text-white statiques) */
+  html.light .text-white {
+    color: rgb(var(--color-text)) !important;
+  }
+  html.light .hover\:text-white:hover {
+    color: rgb(var(--color-text)) !important;
+  }
+  html.light .group-hover\:text-white:hover {
+    color: rgb(var(--color-text)) !important;
+  }
+  html.light .bg-white {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+  html.light .badge-neutral {
+    background: rgb(var(--color-surface-2));
+    border-color: rgb(var(--color-border));
+  }
+  html.light .empty-state-icon,
+  html.light .empty-state p {
+    color: rgb(var(--color-text-dim)) !important;
+  }
+  html.light .modal-overlay {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;

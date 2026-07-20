@@ -19,6 +19,8 @@ import {
   deleteTache,
   updateTacheStatut,
   getCollaborateurStats,
+  getTacheCommentaires,
+  createTacheCommentaire,
 } from '../controllers/tache.controller.js';
 import { authenticate, isResponsable } from '../middleware/auth.middleware.js';
 import { validate } from '../middleware/validate.middleware.js';
@@ -91,5 +93,13 @@ router.delete('/:id', isResponsable, deleteTache);
 
 // PATCH /api/taches/:id/status - Mise à jour du statut uniquement
 router.patch('/:id/status', updateStatutValidation, validate, updateTacheStatut);
+
+// GET /api/taches/:id/commentaires - Récupérer les commentaires d'une tâche
+router.get('/:id/commentaires', getTacheCommentaires);
+
+// POST /api/taches/:id/commentaires - Ajouter un commentaire sur une tâche
+router.post('/:id/commentaires', [
+  body('contenu').trim().notEmpty().withMessage('Le contenu du commentaire est requis'),
+], validate, createTacheCommentaire);
 
 export default router;

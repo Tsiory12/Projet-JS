@@ -89,7 +89,7 @@ const ProfilPage = () => {
 
             <div className="flex flex-wrap gap-2 mt-3 justify-center sm:justify-start">
               <span className={`badge ${isResponsable ? 'badge-primary' : 'badge-success'} px-3 py-1`}>
-                {isResponsable ? '👑 Responsable' : '👤 Collaborateur'}
+                {isResponsable ? 'Responsable' : 'Collaborateur'}
               </span>
               <span className="badge badge-neutral px-3 py-1 flex items-center gap-1">
                 <Calendar size={12} />
