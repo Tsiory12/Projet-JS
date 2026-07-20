@@ -1,0 +1,99 @@
+// schema.prisma — Prisma v7 compatible
+// Remarque : en Prisma v7, le datasource url n'est plus dans le schema
+// Il est défini via prisma.config.ts ou PrismaClient constructor
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================
+// Énumérations
+// ============================================================
+
+enum Role {
+  RESPONSABLE
+  COLLABORATEUR
+}
+
+enum ProjetStatut {
+  EN_COURS
+  EN_PAUSE
+  TERMINE
+  ANNULE
+}
+
+enum TacheStatut {
+  A_FAIRE
+  EN_COURS
+  TERMINEE
+}
+
+enum Priorite {
+  FAIBLE
+  MOYENNE
+  HAUTE
+}
+
+// ============================================================
+// Modèle Utilisateur
+// ============================================================
+model Utilisateur {
+  id            Int       @id @default(autoincrement())
+  nom           String    @db.VarChar(100)
+  prenom        String    @db.VarChar(100)
+  email         String    @unique @db.VarChar(255)
+  motDePasse    String    @db.VarChar(255)
+  role          Role      @default(COLLABORATEUR)
+  dateCreation  DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  projetsGeres    Projet[]  @relation("ResponsableProjets")
+  tachesAssignees Tache[]   @relation("CollaborateurTaches")
+
+  @@map("utilisateurs")
+}
+
+// ============================================================
+// Modèle Projet
+// ============================================================
+model Projet {
+  id            Int          @id @default(autoincrement())
+  titre         String       @db.VarChar(200)
+  description   String?      @db.Text
+  dateDebut     DateTime
+  dateLimite    DateTime
+  statut        ProjetStatut @default(EN_COURS)
+  dateCreation  DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  responsableId Int
+
+  responsable Utilisateur @relation("ResponsableProjets", fields: [responsableId], references: [id], onDelete: Cascade)
+  taches      Tache[]     @relation("ProjetTaches")
+
+  @@map("projets")
+}
+
+// ============================================================
+// Modèle Tâche
+// ============================================================
+model Tache {
+  id              Int         @id @default(autoincrement())
+  titre           String      @db.VarChar(200)
+  description     String?     @db.Text
+  priorite        Priorite    @default(MOYENNE)
+  statut          TacheStatut @default(A_FAIRE)
+  dateLimite      DateTime
+  dateCreation    DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  projetId        Int
+  collaborateurId Int?
+
+  projet        Projet       @relation("ProjetTaches", fields: [projetId], references: [id], onDelete: Cascade)
+  collaborateur Utilisateur? @relation("CollaborateurTaches", fields: [collaborateurId], references: [id], onDelete: SetNull)
+
+  @@map("taches")
+}

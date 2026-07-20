@@ -1,0 +1,39 @@
+{
+  "name": "suivi-projets-server",
+  "version": "1.0.0",
+  "description": "API REST - Suivi de projets pour micro-entreprise",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:prod": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "db:seed": "node src/utils/seed.js",
+    "db:reset": "prisma migrate reset --force"
+  },
+  "keywords": ["express", "prisma", "postgresql", "jwt", "api"],
+  "author": "Étudiant L3 Informatique",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^6.12.0",
+    "bcryptjs": "^3.0.2",
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.2.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prisma": "^6.12.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
