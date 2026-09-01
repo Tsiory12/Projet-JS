@@ -6,9 +6,11 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   X, MessageSquare, Send, Calendar, AlertCircle,
-  Clock, CheckCircle2, Circle, User, ShieldAlert
+  Clock, CheckCircle2, Circle, User, ShieldAlert, Bell
 } from 'lucide-react';
 import { tacheService } from '../../services/tache.service.js';
+import { useAuth } from '../../context/AuthContext.jsx';
+import { useNotification } from '../../context/NotificationContext.jsx';
 import {
   formatDate, formatDateTime, getPrioriteInfo,
   getTacheStatutInfo, isOverdue, getInitiales, getUserColor, timeAgo
@@ -16,6 +18,8 @@ import {
 import { toast } from 'react-toastify';
 
 const TacheDetailModal = ({ isOpen, onClose, tacheId, onStatutChange }) => {
+  const { user } = useAuth();
+  const { notify } = useNotification();
   const [tache, setTache] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -85,6 +89,12 @@ const TacheDetailModal = ({ isOpen, onClose, tacheId, onStatutChange }) => {
       const res = await tacheService.createCommentaire(tacheId, newComment.trim());
       setComments(prev => [...prev, res.data.data]);
       setNewComment('');
+
+      // Notifier la personne assignée à la tâche (si ce n'est pas l'auteur du commentaire)
+      if (tache?.collaborateur && tache.collaborateur.id !== user?.id) {
+        notify('info', `💬 ${user?.prenom} ${user?.nom} a commenté votre tâche "${tache.titre}"`);
+      }
+
       // Auto scroll to bottom
       setTimeout(() => {
         commentsEndRef.current?.scrollIntoView({ behavior: 'smooth' });

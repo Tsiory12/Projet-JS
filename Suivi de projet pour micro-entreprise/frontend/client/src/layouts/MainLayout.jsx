@@ -21,6 +21,7 @@ import {
   Settings,
   Sun,
   Moon,
+  AlertTriangle,
 } from 'lucide-react';
 
 const MainLayout = () => {
@@ -28,6 +29,7 @@ const MainLayout = () => {
   const { unreadCount, notifications, markAllAsRead } = useNotification();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const navigate = useNavigate();
 
   const [theme, setTheme] = useState(() => {
@@ -51,6 +53,10 @@ const MainLayout = () => {
   }, []);
 
   const handleLogout = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
     logout();
     navigate('/login');
   };
@@ -268,7 +274,38 @@ const MainLayout = () => {
         </main>
       </div>
     </div>
-  );
+
+    {/* Modal de confirmation de déconnexion */}
+    {showLogoutConfirm && (
+      <div className="modal-overlay" onClick={() => setShowLogoutConfirm(false)}>
+        <div className="modal max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 rounded-full bg-[rgb(var(--color-danger)/0.1)] flex items-center justify-center mb-4">
+              <AlertTriangle size={24} className="text-[rgb(var(--color-danger))]" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Confirmer la déconnexion</h3>
+            <p className="text-sm text-[rgb(var(--color-text-muted))] mb-6">
+              Êtes-vous sûr de vouloir vous déconnecter ?
+            </p>
+            <div className="flex gap-3 w-full">
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-[rgb(var(--color-text-muted))] bg-[rgb(var(--color-surface-2))] hover:bg-[rgb(var(--color-surface-3))] transition-all"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={confirmLogout}
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-[rgb(var(--color-danger))] hover:bg-[rgb(var(--color-danger)/0.8)] transition-all"
+              >
+                Se déconnecter
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 };
 
 export default MainLayout;
