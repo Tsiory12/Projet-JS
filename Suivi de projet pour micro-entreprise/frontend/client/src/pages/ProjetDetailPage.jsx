@@ -13,6 +13,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useNotification } from '../context/NotificationContext.jsx';
 import LoadingSpinner from '../components/common/LoadingSpinner.jsx';
 import ConfirmModal from '../components/common/ConfirmModal.jsx';
+import NotFoundPage from './NotFoundPage.jsx';
 import {
   ArrowLeft, Plus, Calendar, Edit2, Trash2, X,
   CheckCircle2, Clock, Circle, AlertCircle, Users,
@@ -34,7 +35,7 @@ const STATUTS_TACHE = [
 const ProjetDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isResponsable } = useAuth();
+  const { isResponsable, user } = useAuth();
   const { notifyTacheCreee, notifyTacheTerminee, notifyErreur } = useNotification();
 
   const [projet, setProjet] = useState(null);
@@ -294,7 +295,7 @@ const ProjetDetailPage = () => {
                   <StatutIcon
                     statut={tache.statut}
                     onClick={(s) => updateStatut(tache.id, s)}
-                    disabled={!isResponsable && tache.collaborateurId !== undefined}
+                    disabled={!isResponsable && tache.collaborateurId !== user?.id}
                   />
 
                   {/* Infos */}

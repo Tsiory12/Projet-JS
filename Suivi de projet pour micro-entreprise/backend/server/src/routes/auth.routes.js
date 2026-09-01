@@ -52,6 +52,28 @@ const loginValidation = [
     .notEmpty().withMessage('Le mot de passe est requis'),
 ];
 
+const updateProfileValidation = [
+  body('nom')
+    .optional()
+    .trim()
+    .isLength({ min: 2, max: 100 }).withMessage('Le nom doit contenir entre 2 et 100 caractères'),
+  body('prenom')
+    .optional()
+    .trim()
+    .isLength({ min: 2, max: 100 }).withMessage('Le prénom doit contenir entre 2 et 100 caractères'),
+  body('email')
+    .optional()
+    .trim()
+    .isEmail().withMessage('Format d\'email invalide')
+    .normalizeEmail(),
+  body('nouveauMotDePasse')
+    .optional()
+    .isLength({ min: 8 }).withMessage('Le mot de passe doit contenir au moins 8 caractères')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/).withMessage(
+      'Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre'
+    ),
+];
+
 // ============================================================
 // Routes publiques
 // ============================================================
@@ -70,6 +92,6 @@ router.post('/login', loginValidation, validate, login);
 router.get('/profile', authenticate, getProfile);
 
 // PUT /api/auth/profile - Mise à jour du profil
-router.put('/profile', authenticate, updateProfile);
+router.put('/profile', authenticate, updateProfileValidation, validate, updateProfile);
 
 export default router;

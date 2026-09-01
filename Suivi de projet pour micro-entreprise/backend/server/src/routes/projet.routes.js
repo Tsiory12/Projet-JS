@@ -79,12 +79,12 @@ router.get('/', getProjets);
 router.post('/', isResponsable, createProjetValidation, validate, createProjet);
 
 // GET /api/projets/:id - Détail d'un projet
-router.get('/:id', getProjetById);
+router.get('/:id', param('id').isInt({ min: 1 }).withMessage('ID invalide'), validate, getProjetById);
 
 // PUT /api/projets/:id - Mise à jour d'un projet (Responsable seulement)
 router.put('/:id', isResponsable, updateProjetValidation, validate, updateProjet);
 
 // DELETE /api/projets/:id - Suppression d'un projet (Responsable seulement)
-router.delete('/:id', isResponsable, deleteProjet);
+router.delete('/:id', isResponsable, param('id').isInt({ min: 1 }).withMessage('ID invalide'), validate, deleteProjet);
 
 export default router;

@@ -17,7 +17,9 @@ import { ApiError } from '../middleware/error.middleware.js';
 export const getProjets = async (req, res, next) => {
   try {
     const { statut, search, page = 1, limit = 20 } = req.query;
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const MAX_LIMIT = 100;
+    const safeLimit = Math.min(parseInt(limit) || 20, MAX_LIMIT);
+    const skip = (parseInt(page) - 1) * safeLimit;
 
     // Construction des filtres dynamiques
     const where = {};
@@ -46,7 +48,7 @@ export const getProjets = async (req, res, next) => {
     const projets = await prisma.projet.findMany({
       where,
       skip,
-      take: parseInt(limit),
+      take: safeLimit,
       orderBy: { dateCreation: 'desc' },
       include: {
         responsable: {

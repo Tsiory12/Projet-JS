@@ -6,12 +6,14 @@
  */
 
 import { Router } from 'express';
+import { param } from 'express-validator';
 import {
   getUtilisateurs,
   getUtilisateurById,
   getCollaborateurs,
 } from '../controllers/utilisateur.controller.js';
 import { authenticate, isResponsable } from '../middleware/auth.middleware.js';
+import { validate } from '../middleware/validate.middleware.js';
 
 const router = Router();
 
@@ -25,6 +27,6 @@ router.get('/collaborateurs', isResponsable, getCollaborateurs);
 router.get('/', isResponsable, getUtilisateurs);
 
 // GET /api/utilisateurs/:id - Détail d'un utilisateur
-router.get('/:id', isResponsable, getUtilisateurById);
+router.get('/:id', isResponsable, param('id').isInt({ min: 1 }).withMessage('ID invalide'), validate, getUtilisateurById);
 
 export default router;

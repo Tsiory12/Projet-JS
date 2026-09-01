@@ -17,7 +17,9 @@ import { ApiError } from '../middleware/error.middleware.js';
 export const getTaches = async (req, res, next) => {
   try {
     const { statut, priorite, projetId, search, page = 1, limit = 20 } = req.query;
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const MAX_LIMIT = 100;
+    const safeLimit = Math.min(parseInt(limit) || 20, MAX_LIMIT);
+    const skip = (parseInt(page) - 1) * safeLimit;
     const now = new Date();
 
     // Construction des filtres
@@ -44,7 +46,7 @@ export const getTaches = async (req, res, next) => {
       prisma.tache.findMany({
         where,
         skip,
-        take: parseInt(limit),
+        take: safeLimit,
         orderBy: [
           { priorite: 'desc' },
           { dateLimite: 'asc' },

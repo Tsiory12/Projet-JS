@@ -28,6 +28,7 @@ import ProjetsPage from './pages/ProjetsPage.jsx';
 import ProjetDetailPage from './pages/ProjetDetailPage.jsx';
 import TachesPage from './pages/TachesPage.jsx';
 import ProfilPage from './pages/ProfilPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 const App = () => {
   return (
@@ -92,8 +93,8 @@ const App = () => {
             {/* Racine → Dashboard */}
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-            {/* 404 → Dashboard */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            {/* 404 */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </NotificationProvider>
       </AuthProvider>

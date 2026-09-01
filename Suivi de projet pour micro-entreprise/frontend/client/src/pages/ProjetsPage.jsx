@@ -3,8 +3,8 @@
  * CRUD complet : créer, modifier, supprimer, consulter les projets
  */
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useProjets } from '../hooks/useProjets.js';
 import LoadingSpinner from '../components/common/LoadingSpinner.jsx';
@@ -26,6 +26,7 @@ const STATUTS = [
 ];
 
 const ProjetsPage = () => {
+  const location = useLocation();
   const [search, setSearch] = useState('');
   const [statut, setStatut] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
@@ -33,6 +34,12 @@ const ProjetsPage = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [openMenuId, setOpenMenuId] = useState(null);
+
+  useEffect(() => {
+    if (location.pathname === '/projets/nouveau') {
+      openCreate();
+    }
+  }, [location.pathname]);
 
   const { projets, isLoading, createProjet, updateProjet, deleteProjet } = useProjets({
     ...(search && { search }),

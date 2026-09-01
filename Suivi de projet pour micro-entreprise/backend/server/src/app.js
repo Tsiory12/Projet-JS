@@ -8,6 +8,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
+import rateLimit from 'express-rate-limit';
 import { config } from 'dotenv';
 
 // Chargement des variables d'environnement
@@ -53,6 +54,18 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Rate limiting - protection contre les attaques brute-force
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  message: {
+    success: false,
+    message: 'Trop de tentatives. Réessayez dans 15 minutes.',
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // ============================================================
 // Routes de l'API
 // ============================================================
@@ -69,8 +82,8 @@ app.get(`${API_PREFIX}/health`, (req, res) => {
   });
 });
 
-// Routes principales
-app.use(`${API_PREFIX}/auth`, authRoutes);
+// Routes principales (rate limiting sur auth)
+app.use(`${API_PREFIX}/auth`, authLimiter, authRoutes);
 app.use(`${API_PREFIX}/projets`, projetRoutes);
 app.use(`${API_PREFIX}/taches`, tacheRoutes);
 app.use(`${API_PREFIX}/utilisateurs`, utilisateurRoutes);

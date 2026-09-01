@@ -69,6 +69,30 @@ const updateStatutValidation = [
     ),
 ];
 
+const updateTacheValidation = [
+  param('id').isInt({ min: 1 }).withMessage('ID invalide'),
+  body('titre')
+    .optional()
+    .trim()
+    .isLength({ min: 3, max: 200 }).withMessage('Le titre doit contenir entre 3 et 200 caractères'),
+  body('description')
+    .optional()
+    .trim()
+    .isLength({ max: 2000 }).withMessage('La description ne peut pas dépasser 2000 caractères'),
+  body('priorite')
+    .optional()
+    .isIn(['FAIBLE', 'MOYENNE', 'HAUTE']).withMessage('Priorité invalide'),
+  body('statut')
+    .optional()
+    .isIn(['A_FAIRE', 'EN_COURS', 'TERMINEE']).withMessage('Statut invalide'),
+  body('dateLimite')
+    .optional()
+    .isISO8601().withMessage('Format de date invalide'),
+  body('collaborateurId')
+    .optional()
+    .isInt({ min: 1 }).withMessage('ID de collaborateur invalide'),
+];
+
 // ============================================================
 // Routes
 // ============================================================
@@ -83,22 +107,23 @@ router.get('/', getTaches);
 router.post('/', isResponsable, createTacheValidation, validate, createTache);
 
 // GET /api/taches/:id - Détail d'une tâche
-router.get('/:id', getTacheById);
+router.get('/:id', param('id').isInt({ min: 1 }).withMessage('ID invalide'), validate, getTacheById);
 
 // PUT /api/taches/:id - Mise à jour complète d'une tâche
-router.put('/:id', updateTache);
+router.put('/:id', updateTacheValidation, validate, updateTache);
 
 // DELETE /api/taches/:id - Suppression d'une tâche (Responsable seulement)
-router.delete('/:id', isResponsable, deleteTache);
+router.delete('/:id', isResponsable, param('id').isInt({ min: 1 }).withMessage('ID invalide'), validate, deleteTache);
 
 // PATCH /api/taches/:id/status - Mise à jour du statut uniquement
 router.patch('/:id/status', updateStatutValidation, validate, updateTacheStatut);
 
 // GET /api/taches/:id/commentaires - Récupérer les commentaires d'une tâche
-router.get('/:id/commentaires', getTacheCommentaires);
+router.get('/:id/commentaires', param('id').isInt({ min: 1 }).withMessage('ID invalide'), validate, getTacheCommentaires);
 
 // POST /api/taches/:id/commentaires - Ajouter un commentaire sur une tâche
 router.post('/:id/commentaires', [
+  param('id').isInt({ min: 1 }).withMessage('ID invalide'),
   body('contenu').trim().notEmpty().withMessage('Le contenu du commentaire est requis'),
 ], validate, createTacheCommentaire);
 
