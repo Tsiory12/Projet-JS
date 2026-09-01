@@ -127,7 +127,7 @@ const TacheDetailModal = ({ isOpen, onClose, tacheId, onStatutChange }) => {
 
         {loading ? (
           <div className="flex-1 flex flex-col items-center justify-center">
-            <span className="w-10 h-10 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mb-4" />
+            <span className="w-10 h-10 border-4 border-amber-500/30 border-t-amber-500 rounded-full animate-spin mb-4" />
             <p className="text-sm text-[rgb(var(--color-text-muted))]">Chargement des détails...</p>
           </div>
         ) : (
@@ -222,7 +222,7 @@ const TacheDetailModal = ({ isOpen, onClose, tacheId, onStatutChange }) => {
               {/* Section Commentaires */}
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-white">
-                  <MessageSquare size={18} className="text-indigo-400" />
+                  <MessageSquare size={18} className="text-amber-400" />
                   <h3 className="font-bold text-sm">Commentaires ({comments.length})</h3>
                 </div>
 
@@ -255,7 +255,7 @@ const TacheDetailModal = ({ isOpen, onClose, tacheId, onStatutChange }) => {
                               </span>
                               <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
                                 comment.auteur.role === 'RESPONSABLE'
-                                  ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+                                  ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                                   : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                               }`}>
                                 {comment.auteur.role === 'RESPONSABLE' ? 'Responsable' : 'Collaborateur'}

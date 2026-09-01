@@ -77,7 +77,7 @@ const ProfilPage = () => {
       <div className="card">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
           {/* Avatar grand */}
-          <div className="avatar avatar-xl flex-shrink-0 shadow-lg shadow-indigo-500/20">
+          <div className="avatar avatar-xl flex-shrink-0 shadow-lg shadow-amber-500/20">
             {user?.prenom?.charAt(0)}{user?.nom?.charAt(0)}
           </div>
 
@@ -112,7 +112,7 @@ const ProfilPage = () => {
       {editMode && (
         <div className="card animate-slideUp">
           <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
-            <Edit2 size={16} className="text-indigo-400" />
+            <Edit2 size={16} className="text-amber-400" />
             Modifier mes informations
           </h3>
           <form onSubmit={handleSubmit(onSaveProfile)} className="space-y-4">
@@ -158,7 +158,7 @@ const ProfilPage = () => {
       {!editMode && (
         <div className="card">
           <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
-            <User size={16} className="text-indigo-400" />
+            <User size={16} className="text-amber-400" />
             Informations personnelles
           </h3>
           <div className="space-y-4">
@@ -187,7 +187,7 @@ const ProfilPage = () => {
       <div className="card">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <Lock size={16} className="text-indigo-400" />
+            <Lock size={16} className="text-amber-400" />
             Sécurité
           </h3>
           <button

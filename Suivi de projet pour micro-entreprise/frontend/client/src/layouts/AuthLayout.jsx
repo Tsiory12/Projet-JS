@@ -10,21 +10,21 @@ const AuthLayout = () => {
   return (
     <div className="min-h-screen flex bg-[rgb(var(--color-bg))]">
       {/* Panel gauche - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 flex-col items-center justify-center p-12">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-amber-950 via-stone-950 to-slate-950 flex-col items-center justify-center p-12">
         {/* Cercles décoratifs */}
-        <div className="absolute top-[-100px] left-[-100px] w-[400px] h-[400px] rounded-full bg-indigo-600/10 blur-3xl" />
-        <div className="absolute bottom-[-100px] right-[-100px] w-[400px] h-[400px] rounded-full bg-purple-600/10 blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/5 blur-3xl" />
+        <div className="absolute top-[-100px] left-[-100px] w-[400px] h-[400px] rounded-full bg-amber-600/10 blur-3xl" />
+        <div className="absolute bottom-[-100px] right-[-100px] w-[400px] h-[400px] rounded-full bg-orange-600/10 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-500/5 blur-3xl" />
 
         {/* Contenu branding */}
         <div className="relative z-10 text-center max-w-md">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 mb-8 shadow-2xl shadow-indigo-500/30">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 mb-8 shadow-2xl shadow-amber-500/30">
             <Briefcase size={36} className="text-white" />
           </div>
 
           <h1 className="text-4xl font-black text-white mb-4 leading-tight">
             Suivi de Projets
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
               Micro-Entreprise
             </span>
           </h1>
@@ -36,8 +36,8 @@ const AuthLayout = () => {
           {/* Features */}
           <div className="space-y-4 text-left">
             {[
-              { icon: <FolderKanban className="text-indigo-400" size={24} />, title: 'Gestion de projets', desc: 'Créez et pilotez vos projets facilement' },
-              { icon: <CheckSquare className="text-purple-400" size={24} />, title: 'Suivi des tâches', desc: 'Assignez et suivez chaque tâche' },
+              { icon: <FolderKanban className="text-amber-400" size={24} />, title: 'Gestion de projets', desc: 'Créez et pilotez vos projets facilement' },
+              { icon: <CheckSquare className="text-fuchsia-400" size={24} />, title: 'Suivi des tâches', desc: 'Assignez et suivez chaque tâche' },
               { icon: <LayoutDashboard className="text-pink-400" size={24} />, title: 'Tableaux de bord', desc: 'Visualisez l\'avancement en temps réel' },
             ].map((f) => (
               <div key={f.title} className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
@@ -57,7 +57,7 @@ const AuthLayout = () => {
         <div className="w-full max-w-md">
           {/* Logo mobile uniquement */}
           <div className="lg:hidden flex items-center gap-3 justify-center mb-8">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
               <Briefcase size={20} className="text-white" />
             </div>
             <span className="font-bold text-white">Suivi Projets</span>

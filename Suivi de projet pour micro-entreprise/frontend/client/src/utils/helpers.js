@@ -69,7 +69,7 @@ export const daysUntil = (date) => {
  */
 export const getProjetStatutInfo = (statut) => {
   const statuts = {
-    EN_COURS: { label: 'En cours', className: 'badge-info', color: '#3b82f6' },
+    EN_COURS: { label: 'En cours', className: 'badge-info', color: '#14b8a8' },
     EN_PAUSE: { label: 'En pause', className: 'badge-warning', color: '#eab308' },
     TERMINE: { label: 'Terminé', className: 'badge-success', color: '#22c55e' },
     ANNULE: { label: 'Annulé', className: 'badge-danger', color: '#ef4444' },
@@ -83,7 +83,7 @@ export const getProjetStatutInfo = (statut) => {
 export const getTacheStatutInfo = (statut) => {
   const statuts = {
     A_FAIRE: { label: 'À faire', className: 'badge-neutral', color: '#6b7280' },
-    EN_COURS: { label: 'En cours', className: 'badge-info', color: '#3b82f6' },
+    EN_COURS: { label: 'En cours', className: 'badge-info', color: '#14b8a8' },
     TERMINEE: { label: 'Terminée', className: 'badge-success', color: '#22c55e' },
   };
   return statuts[statut] || { label: statut, className: 'badge-neutral', color: '#6b7280' };
@@ -119,12 +119,12 @@ export const getInitiales = (nom, prenom) => {
  */
 export const getUserColor = (id) => {
   const colors = [
-    'from-violet-500 to-purple-600',
-    'from-blue-500 to-cyan-600',
+    'from-fuchsia-500 to-pink-600',
+    'from-amber-500 to-orange-600',
     'from-emerald-500 to-green-600',
     'from-orange-500 to-amber-600',
     'from-rose-500 to-pink-600',
-    'from-indigo-500 to-blue-600',
+    'from-yellow-500 to-amber-600',
   ];
   return colors[id % colors.length];
 };

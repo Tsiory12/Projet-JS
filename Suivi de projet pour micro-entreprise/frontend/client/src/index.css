@@ -7,10 +7,10 @@
 
 @layer base {
   :root {
-    /* Couleurs primaires */
-    --color-primary: 99 102 241;
-    --color-primary-light: 129 140 248;
-    --color-primary-dark: 79 70 229;
+    /* Couleurs primaires - Ambres (palette chaude) */
+    --color-primary: 249 115 22;
+    --color-primary-light: 251 191 36;
+    --color-primary-dark: 234 88 12;
 
     /* Couleurs de surface */
     --color-bg: 10 10 15;
@@ -28,7 +28,7 @@
     --color-success: 34 197 94;
     --color-warning: 234 179 8;
     --color-danger: 239 68 68;
-    --color-info: 59 130 246;
+    --color-info: 94 231 216;
 
     /* Priorités */
     --color-haute: 239 68 68;
@@ -627,7 +627,7 @@
 
   /* Gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, rgb(var(--color-primary-light)), rgb(165 180 252));
+     background: linear-gradient(135deg, rgb(var(--color-primary-light)), rgb(252 202 70));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

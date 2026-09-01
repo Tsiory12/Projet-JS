@@ -26,7 +26,7 @@ import TacheDetailModal from '../components/tasks/TacheDetailModal.jsx';
 
 const COLONNES_KANBAN = [
   { key: 'A_FAIRE', label: 'À faire', icon: Circle, color: 'text-[rgb(var(--color-text-dim))]', borderColor: 'border-[rgb(var(--color-border)/0.5)]' },
-  { key: 'EN_COURS', label: 'En cours', icon: Clock, color: 'text-blue-400', borderColor: 'border-blue-500/30' },
+  { key: 'EN_COURS', label: 'En cours', icon: Clock, color: 'text-teal-400', borderColor: 'border-teal-500/30' },
   { key: 'TERMINEE', label: 'Terminée', icon: CheckCircle2, color: 'text-emerald-400', borderColor: 'border-emerald-500/30' },
 ];
 
@@ -124,7 +124,7 @@ const TachesPage = () => {
           className="flex-shrink-0 hover:scale-110 transition-transform"
         >
           {tache.statut === 'A_FAIRE' && <Circle size={18} className="text-[rgb(var(--color-text-dim))]" />}
-          {tache.statut === 'EN_COURS' && <Clock size={18} className="text-blue-400" />}
+          {tache.statut === 'EN_COURS' && <Clock size={18} className="text-teal-400" />}
           {tache.statut === 'TERMINEE' && <CheckCircle2 size={18} className="text-emerald-400" />}
         </button>
 
@@ -133,7 +133,7 @@ const TachesPage = () => {
           <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
             <p
               onClick={() => setDetailTacheId(tache.id)}
-              className={`text-sm font-semibold cursor-pointer hover:text-indigo-400 transition-colors ${tache.statut === 'TERMINEE' ? 'line-through text-[rgb(var(--color-text-dim))]' : 'text-white'}`}
+              className={`text-sm font-semibold cursor-pointer hover:text-amber-400 transition-colors ${tache.statut === 'TERMINEE' ? 'line-through text-[rgb(var(--color-text-dim))]' : 'text-white'}`}
             >
               {tache.titre}
             </p>
@@ -148,7 +148,7 @@ const TachesPage = () => {
           </div>
           <div className="flex flex-wrap gap-3 text-xs text-[rgb(var(--color-text-dim))]">
             {tache.projet && (
-              <Link to={`/projets/${tache.projet.id}`} className="hover:text-indigo-400 transition-colors truncate max-w-[150px]">
+              <Link to={`/projets/${tache.projet.id}`} className="hover:text-amber-400 transition-colors truncate max-w-[150px]">
                 📁 {tache.projet.titre}
               </Link>
             )}

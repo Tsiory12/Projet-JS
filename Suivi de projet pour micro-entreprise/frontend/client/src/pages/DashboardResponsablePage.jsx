@@ -83,8 +83,8 @@ const DashboardResponsablePage = () => {
       {
         label: 'Progression (%)',
         data: stats?.projetProgression?.map((p) => p.progression) || [],
-        backgroundColor: 'rgba(99, 102, 241, 0.7)',
-        borderColor: 'rgba(99, 102, 241, 1)',
+        backgroundColor: 'rgba(249, 115, 22, 0.7)',
+        borderColor: 'rgba(249, 115, 22, 1)',
         borderWidth: 1,
         borderRadius: 6,
       },
@@ -169,8 +169,8 @@ const DashboardResponsablePage = () => {
           tacheStatutData.find((s) => s.statut === 'EN_COURS')?._count?.statut || 0,
           tacheStatutData.find((s) => s.statut === 'TERMINEE')?._count?.statut || 0,
         ],
-        backgroundColor: ['rgba(100, 100, 130, 0.7)', 'rgba(59, 130, 246, 0.7)', 'rgba(34, 197, 94, 0.7)'],
-        borderColor: ['rgba(100, 100, 130, 1)', 'rgba(59, 130, 246, 1)', 'rgba(34, 197, 94, 1)'],
+        backgroundColor: ['rgba(100, 100, 130, 0.7)', 'rgba(94, 231, 216, 0.7)', 'rgba(34, 197, 94, 0.7)'],
+        borderColor: ['rgba(100, 100, 130, 1)', 'rgba(94, 231, 216, 1)', 'rgba(34, 197, 94, 1)'],
         borderWidth: 1,
       },
     ],
@@ -200,14 +200,14 @@ const DashboardResponsablePage = () => {
           icon={<FolderKanban size={22} />}
           label="Total projets"
           value={stats?.projets?.total || 0}
-          color="bg-indigo-500/10 text-indigo-400"
+          color="bg-amber-500/10 text-amber-400"
           trend="+2 ce mois"
         />
         <StatCard
           icon={<CheckSquare size={22} />}
           label="Total tâches"
           value={stats?.taches?.total || 0}
-          color="bg-blue-500/10 text-blue-400"
+          color="bg-teal-500/10 text-teal-400"
           trend={`${stats?.taches?.terminees || 0} terminées`}
         />
         <StatCard
@@ -256,7 +256,7 @@ const DashboardResponsablePage = () => {
         <div className="card lg:col-span-2">
           <div className="section-header mb-4">
             <h3 className="text-base font-bold text-white">Projets récents</h3>
-            <Link to="/projets" className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+            <Link to="/projets" className="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1">
               Voir tout <ArrowRight size={12} />
             </Link>
           </div>
@@ -276,7 +276,7 @@ const DashboardResponsablePage = () => {
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1.5">
-                        <p className="text-sm font-semibold text-white truncate group-hover:text-indigo-300 transition-colors">
+                        <p className="text-sm font-semibold text-white truncate group-hover:text-amber-300 transition-colors">
                           {projet.titre}
                         </p>
                         <div className="flex items-center gap-2 ml-2 flex-shrink-0">

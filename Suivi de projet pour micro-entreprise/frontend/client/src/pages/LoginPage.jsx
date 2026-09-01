@@ -127,7 +127,7 @@ const LoginPage = () => {
           🔑 Comptes de démonstration
         </p>
         <div className="space-y-1 text-xs text-[rgb(var(--color-text-dim))]">
-          <p><span className="text-indigo-400">Responsable:</span> marie.dupont@entreprise.com</p>
+          <p><span className="text-amber-400">Responsable:</span> marie.dupont@entreprise.com</p>
           <p><span className="text-emerald-400">Collaborateur:</span> lucas.martin@entreprise.com</p>
           <p className="text-[rgb(var(--color-text-dim))]">Mot de passe: <span className="text-white font-mono">Password123</span></p>
         </div>
@@ -136,11 +136,11 @@ const LoginPage = () => {
       {/* Lien inscription */}
       <p className="text-center text-sm text-[rgb(var(--color-text-muted))] mt-6">
         Pas encore de compte ?{' '}
-        <Link
-          to="/register"
-          className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors"
-          id="register-link"
-        >
+          <Link
+            to="/register"
+            className="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
+            id="register-link"
+          >
           S'inscrire
         </Link>
       </p>

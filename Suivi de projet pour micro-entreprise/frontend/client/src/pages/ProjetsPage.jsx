@@ -139,7 +139,7 @@ const ProjetsPage = () => {
             const statutInfo = getProjetStatutInfo(projet.statut);
             const prog = projet.stats?.progression ?? 0;
             return (
-              <div key={projet.id} className="card hover:border-indigo-500/30 transition-all group relative">
+              <div key={projet.id} className="card hover:border-amber-500/30 transition-all group relative">
                 {/* Menu contextuel */}
                 <div className="absolute top-3 right-3">
                   <button
@@ -167,14 +167,14 @@ const ProjetsPage = () => {
                 {/* Contenu */}
                 <div className="pr-8">
                   <div className="flex items-start justify-between gap-2 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
-                      <FolderKanban size={20} className="text-indigo-400" />
+                      <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                        <FolderKanban size={20} className="text-amber-400" />
                     </div>
                     <span className={`badge ${statutInfo.className}`}>{statutInfo.label}</span>
                   </div>
 
                   <Link to={`/projets/${projet.id}`}>
-                    <h3 className="font-bold text-white group-hover:text-indigo-300 transition-colors truncate-2 mb-2">
+                    <h3 className="font-bold text-white group-hover:text-amber-300 transition-colors truncate-2 mb-2">
                       {projet.titre}
                     </h3>
                   </Link>

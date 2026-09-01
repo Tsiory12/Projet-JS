@@ -74,10 +74,10 @@ const DashboardCollaborateurPage = () => {
         data: [aFaire, enCours, terminees],
         backgroundColor: [
           'rgba(100, 100, 130, 0.8)',
-          'rgba(59, 130, 246, 0.8)',
+          'rgba(94, 231, 216, 0.8)',
           'rgba(34, 197, 94, 0.8)',
         ],
-        borderColor: ['rgb(100,100,130)', 'rgb(59,130,246)', 'rgb(34,197,94)'],
+        borderColor: ['rgb(100,100,130)', 'rgb(94,231,216)', 'rgb(34,197,94)'],
         borderWidth: 2,
       },
     ],
@@ -122,7 +122,7 @@ const DashboardCollaborateurPage = () => {
       {/* Cartes statistiques */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="stat-card">
-          <div className="stat-icon bg-indigo-500/10 text-indigo-400">
+          <div className="stat-icon bg-amber-500/10 text-amber-400">
             <Target size={22} />
           </div>
           <div>
@@ -131,7 +131,7 @@ const DashboardCollaborateurPage = () => {
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon bg-blue-500/10 text-blue-400">
+          <div className="stat-icon bg-teal-500/10 text-teal-400">
             <Clock size={22} />
           </div>
           <div>
@@ -174,7 +174,7 @@ const DashboardCollaborateurPage = () => {
               <Flame size={16} className="text-orange-400" />
               Prochaines échéances (7 jours)
             </h3>
-            <Link to="/taches" className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+            <Link to="/taches" className="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1">
               Voir tout <ArrowRight size={12} />
             </Link>
           </div>
@@ -204,7 +204,7 @@ const DashboardCollaborateurPage = () => {
                       <p className="text-[9px] text-[rgb(var(--color-text-dim))]">jours</p>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-white truncate group-hover:text-indigo-300 transition-colors">
+                      <p className="text-sm font-semibold text-white truncate group-hover:text-amber-300 transition-colors">
                         {tache.titre}
                       </p>
                       <div className="flex items-center gap-2 mt-1">

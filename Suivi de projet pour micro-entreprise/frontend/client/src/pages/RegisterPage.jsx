@@ -59,7 +59,7 @@ const RegisterPage = () => {
             onClick={() => setSelectedRole('RESPONSABLE')}
             className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-200
               ${selectedRole === 'RESPONSABLE'
-                ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400'
+                ? 'border-amber-500 bg-amber-500/10 text-amber-400'
                 : 'border-[rgb(var(--color-border)/0.4)] bg-[rgb(var(--color-surface-2))] text-[rgb(var(--color-text-muted))] hover:border-[rgb(var(--color-border))]'
               }`}
             id="role-responsable-btn"
@@ -205,7 +205,7 @@ const RegisterPage = () => {
 
       <p className="text-center text-sm text-[rgb(var(--color-text-muted))] mt-6">
         Déjà un compte ?{' '}
-        <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">
+        <Link to="/login" className="text-amber-400 hover:text-amber-300 font-semibold transition-colors">
           Se connecter
         </Link>
       </p>

@@ -168,7 +168,7 @@ const ProjetDetailPage = () => {
   const StatutIcon = ({ statut, onClick, disabled }) => {
     const icons = {
       A_FAIRE: <Circle size={18} className="text-[rgb(var(--color-text-dim))]" />,
-      EN_COURS: <Clock size={18} className="text-blue-400" />,
+       EN_COURS: <Clock size={18} className="text-teal-400" />,
       TERMINEE: <CheckCircle2 size={18} className="text-emerald-400" />,
     };
     if (disabled) return icons[statut] || icons.A_FAIRE;
@@ -192,8 +192,8 @@ const ProjetDetailPage = () => {
           <div className="flex flex-col sm:flex-row sm:items-start gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
-                  <FolderKanban size={20} className="text-indigo-400" />
+                <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                  <FolderKanban size={20} className="text-amber-400" />
                 </div>
                 <span className={`badge ${statutInfo.className}`}>{statutInfo.label}</span>
               </div>
@@ -228,7 +228,7 @@ const ProjetDetailPage = () => {
             </div>
             <div className="flex gap-4 mt-2 text-xs text-[rgb(var(--color-text-dim))]">
               <span><span className="text-white font-semibold">{projet.stats?.tachesTerminees || 0}</span> terminées</span>
-              <span><span className="text-blue-400 font-semibold">{projet.stats?.tachesEnCours || 0}</span> en cours</span>
+              <span><span className="text-teal-400 font-semibold">{projet.stats?.tachesEnCours || 0}</span> en cours</span>
               <span><span className="text-[rgb(var(--color-text-dim))] font-semibold">{projet.stats?.tachesAFaire || 0}</span> à faire</span>
               {projet.stats?.tachesEnRetard > 0 && (
                 <span className="text-red-400 flex items-center gap-1">
@@ -302,7 +302,7 @@ const ProjetDetailPage = () => {
                     <div className="flex items-center gap-2 flex-wrap">
                       <p
                         onClick={() => setDetailTacheId(tache.id)}
-                        className={`font-semibold text-sm cursor-pointer hover:text-indigo-400 transition-colors ${tache.statut === 'TERMINEE' ? 'line-through text-[rgb(var(--color-text-dim))]' : 'text-white'}`}
+                        className={`font-semibold text-sm cursor-pointer hover:text-amber-400 transition-colors ${tache.statut === 'TERMINEE' ? 'line-through text-[rgb(var(--color-text-dim))]' : 'text-white'}`}
                       >
                         {tache.titre}
                       </p>
