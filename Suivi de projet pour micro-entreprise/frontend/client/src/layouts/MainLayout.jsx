@@ -84,9 +84,9 @@ const MainLayout = () => {
             <Briefcase size={20} className="text-white" />
           </div>
           <div>
-            <h1 className="font-bold text-sm text-white leading-tight">Suivi Projets</h1>
-            <p className="text-[10px] text-[rgb(var(--color-text-dim))] uppercase tracking-widest">
-              Micro-Entreprise
+            <h2 className="font-bold text-sm text-white leading-tight">Projeo</h2>
+            <p className="text-[10px] text-[rgb(var(--color-text-dim))]">
+              Suivi Projet Micro-Entreprise
             </p>
           </div>
         </div>
@@ -151,6 +151,39 @@ const MainLayout = () => {
     </div>
   );
 
+  
+    {/* Modal de confirmation de déconnexion */}
+    {showLogoutConfirm && (
+      <div className="modal-overlay" onClick={() => setShowLogoutConfirm(false)}>
+        <div className="modal max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 rounded-full bg-[rgb(var(--color-danger)/0.1)] flex items-center justify-center mb-4">
+              <AlertTriangle size={24} className="text-[rgb(var(--color-danger))]" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Confirmer la déconnexion</h3>
+            <p className="text-sm text-[rgb(var(--color-text-muted))] mb-6">
+              Êtes-vous sûr de vouloir vous déconnecter ?
+            </p>
+            <div className="flex gap-3 w-full">
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-[rgb(var(--color-text-muted))] bg-[rgb(var(--color-surface-2))] hover:bg-[rgb(var(--color-surface-3))] transition-all"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={confirmLogout}
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-[rgb(var(--color-danger))] hover:bg-[rgb(var(--color-danger)/0.8)] transition-all"
+              >
+                Se déconnecter
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    );
+  };
   return (
     <div className="flex h-screen overflow-hidden bg-[rgb(var(--color-bg))]">
       {/* Sidebar Desktop */}
@@ -273,39 +306,7 @@ const MainLayout = () => {
           </div>
         </main>
       </div>
-    </div>
-
-    {/* Modal de confirmation de déconnexion */}
-    {showLogoutConfirm && (
-      <div className="modal-overlay" onClick={() => setShowLogoutConfirm(false)}>
-        <div className="modal max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
-          <div className="flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-full bg-[rgb(var(--color-danger)/0.1)] flex items-center justify-center mb-4">
-              <AlertTriangle size={24} className="text-[rgb(var(--color-danger))]" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Confirmer la déconnexion</h3>
-            <p className="text-sm text-[rgb(var(--color-text-muted))] mb-6">
-              Êtes-vous sûr de vouloir vous déconnecter ?
-            </p>
-            <div className="flex gap-3 w-full">
-              <button
-                onClick={() => setShowLogoutConfirm(false)}
-                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-[rgb(var(--color-text-muted))] bg-[rgb(var(--color-surface-2))] hover:bg-[rgb(var(--color-surface-3))] transition-all"
-              >
-                Annuler
-              </button>
-              <button
-                onClick={confirmLogout}
-                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-[rgb(var(--color-danger))] hover:bg-[rgb(var(--color-danger)/0.8)] transition-all"
-              >
-                Se déconnecter
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+    </div> )
 };
 
 export default MainLayout;
