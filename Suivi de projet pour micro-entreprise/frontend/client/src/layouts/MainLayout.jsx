@@ -18,7 +18,6 @@ import {
   X,
   ChevronRight,
   Briefcase,
-  Settings,
   Sun,
   Moon,
   AlertTriangle,
@@ -61,7 +60,6 @@ const MainLayout = () => {
     navigate('/login');
   };
 
-  // Navigation selon le rôle
   const navItems = isResponsable
     ? [
         { to: '/dashboard', icon: LayoutDashboard, label: 'Tableau de bord' },
@@ -77,22 +75,20 @@ const MainLayout = () => {
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
-      {/* Logo */}
       <div className="p-6 border-b border-[rgb(var(--color-border)/0.3)]">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg">
             <Briefcase size={20} className="text-white" />
           </div>
           <div>
-            <h2 className="font-bold text-sm text-white leading-tight">Projeo</h2>
-            <p className="text-[10px] text-[rgb(var(--color-text-dim))]">
-              Suivi Projet Micro-Entreprise
+            <h1 className="font-bold text-sm text-white leading-tight">Suivi Projets</h1>
+            <p className="text-[10px] text-[rgb(var(--color-text-dim))] uppercase tracking-widest">
+              Micro-Entreprise
             </p>
           </div>
         </div>
       </div>
 
-      {/* Profil utilisateur */}
       <div className="p-4">
         <div className="flex items-center gap-3 p-3 rounded-xl bg-[rgb(var(--color-surface-2))] border border-[rgb(var(--color-border)/0.3)]">
           <div className="avatar">
@@ -109,7 +105,6 @@ const MainLayout = () => {
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
         {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
@@ -138,7 +133,6 @@ const MainLayout = () => {
         ))}
       </nav>
 
-      {/* Déconnexion */}
       <div className="p-3 border-t border-[rgb(var(--color-border)/0.3)]">
         <button
           onClick={handleLogout}
@@ -151,47 +145,12 @@ const MainLayout = () => {
     </div>
   );
 
-  
-    {/* Modal de confirmation de déconnexion */}
-    {showLogoutConfirm && (
-      <div className="modal-overlay" onClick={() => setShowLogoutConfirm(false)}>
-        <div className="modal max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
-          <div className="flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-full bg-[rgb(var(--color-danger)/0.1)] flex items-center justify-center mb-4">
-              <AlertTriangle size={24} className="text-[rgb(var(--color-danger))]" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Confirmer la déconnexion</h3>
-            <p className="text-sm text-[rgb(var(--color-text-muted))] mb-6">
-              Êtes-vous sûr de vouloir vous déconnecter ?
-            </p>
-            <div className="flex gap-3 w-full">
-              <button
-                onClick={() => setShowLogoutConfirm(false)}
-                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-[rgb(var(--color-text-muted))] bg-[rgb(var(--color-surface-2))] hover:bg-[rgb(var(--color-surface-3))] transition-all"
-              >
-                Annuler
-              </button>
-              <button
-                onClick={confirmLogout}
-                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-[rgb(var(--color-danger))] hover:bg-[rgb(var(--color-danger)/0.8)] transition-all"
-              >
-                Se déconnecter
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-    );
-  };
   return (
     <div className="flex h-screen overflow-hidden bg-[rgb(var(--color-bg))]">
-      {/* Sidebar Desktop */}
       <aside className="hidden lg:flex w-64 flex-col bg-[rgb(var(--color-surface))] border-r border-[rgb(var(--color-border)/0.3)] flex-shrink-0">
         <SidebarContent />
       </aside>
 
-      {/* Sidebar Mobile - Overlay */}
       {sidebarOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div
@@ -210,13 +169,10 @@ const MainLayout = () => {
         </div>
       )}
 
-      {/* Contenu principal */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-        {/* Header */}
         <header className="h-16 bg-[rgb(var(--color-surface))] border-b border-[rgb(var(--color-border)/0.3)] flex-shrink-0">
           <div className="max-w-7xl mx-auto w-full px-4 lg:px-6 flex items-center justify-between h-full">
             <div className="flex items-center gap-3">
-              {/* Bouton menu mobile */}
               <button
                 onClick={() => setSidebarOpen(true)}
                 className="lg:hidden p-2 rounded-lg hover:bg-[rgb(var(--color-surface-2))] text-[rgb(var(--color-text-muted))]"
@@ -231,7 +187,6 @@ const MainLayout = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              {/* Bouton Dark/Light Mode */}
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-xl hover:bg-[rgb(var(--color-surface-2))] text-[rgb(var(--color-text-muted))] hover:text-white transition-all"
@@ -240,7 +195,6 @@ const MainLayout = () => {
                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
               </button>
 
-              {/* Cloche de notifications */}
               <div className="relative">
                 <button
                   onClick={() => { setNotifOpen(!notifOpen); markAllAsRead(); }}
@@ -254,7 +208,6 @@ const MainLayout = () => {
                   )}
                 </button>
 
-                {/* Dropdown notifications */}
                 {notifOpen && (
                   <div className="absolute right-0 top-12 w-80 bg-[rgb(var(--color-surface-2))] border border-[rgb(var(--color-border)/0.5)] rounded-xl shadow-2xl z-50 overflow-hidden animate-fadeIn">
                     <div className="p-3 border-b border-[rgb(var(--color-border)/0.3)] flex items-center justify-between">
@@ -289,7 +242,6 @@ const MainLayout = () => {
                 )}
               </div>
 
-              {/* Avatar */}
               <NavLink to="/profil" className="flex items-center gap-2">
                 <div className="avatar">
                   {user?.prenom?.charAt(0)}{user?.nom?.charAt(0)}
@@ -299,14 +251,44 @@ const MainLayout = () => {
           </div>
         </header>
 
-        {/* Zone de contenu scrollable */}
         <main className="flex-1 overflow-y-auto">
           <div className="max-w-7xl mx-auto w-full p-4 lg:p-6">
             <Outlet />
           </div>
         </main>
       </div>
-    </div> )
+
+      {showLogoutConfirm && (
+        <div className="modal-overlay" onClick={() => setShowLogoutConfirm(false)}>
+          <div className="modal max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 rounded-full bg-[rgb(var(--color-danger)/0.1)] flex items-center justify-center mb-4">
+                <AlertTriangle size={24} className="text-[rgb(var(--color-danger))]" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Confirmer la déconnexion</h3>
+              <p className="text-sm text-[rgb(var(--color-text-muted))] mb-6">
+                Êtes-vous sûr de vouloir vous déconnecter ?
+              </p>
+              <div className="flex gap-3 w-full">
+                <button
+                  onClick={() => setShowLogoutConfirm(false)}
+                  className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-[rgb(var(--color-text-muted))] bg-[rgb(var(--color-surface-2))] hover:bg-[rgb(var(--color-surface-3))] transition-all"
+                >
+                  Annuler
+                </button>
+                <button
+                  onClick={confirmLogout}
+                  className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-[rgb(var(--color-danger))] hover:bg-[rgb(var(--color-danger)/0.8)] transition-all"
+                >
+                  Se déconnecter
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default MainLayout;
