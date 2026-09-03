@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: suivi_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: suivi_projets
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - suivi_network
+
+  backend:
+    build:
+      context: ./backend/server
+      dockerfile: Dockerfile
+    container_name: suivi_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/suivi_projets?schema=public
+      JWT_SECRET: changez-ce-secret-en-production
+      FRONTEND_URL: http://localhost
+    ports:
+      - "5000:5000"
+    networks:
+      - suivi_network
+
+  frontend:
+    build:
+      context: ./frontend/client
+      dockerfile: Dockerfile
+    container_name: suivi_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - suivi_network
+
+volumes:
+  postgres_data:
+    name: suivi_postgres_data
+
+networks:
+  suivi_network:
+    name: suivi_network
+    driver: bridge
